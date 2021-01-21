@@ -4,6 +4,12 @@ const userController = require('../controllers/user');
 
 const router = express.Router();
 
+const { body } = require('express-validator');
+
+const User = require('../models/user');
+
+const authController = require('../controllers/auth');
+
 router.get('/', userController.getUsers);
 
 router.get('/:id_user', userController.getUser);

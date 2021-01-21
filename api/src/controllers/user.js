@@ -1,5 +1,10 @@
 const User = require('../models/user');
 
+const { validationResult } = require('express-validator');
+
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 exports.getUsers = async (req, res, next) => {
     try {
         const [users] = await User.getUsers();
