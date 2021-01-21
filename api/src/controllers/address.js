@@ -27,7 +27,7 @@ exports.getUserAddresses = async (req, res, next) => {
 exports.addAddress = async (req, res, next) => {
     try {
         const addAddressResponse = await Address.addAddress(req.body);
-        res.status(201).json(addAddressResponse);
+        res.status(201).json({ message: 'Address registered!' });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
@@ -39,7 +39,7 @@ exports.addAddress = async (req, res, next) => {
 exports.editAddress = async (req, res, next) => {
     try {
         const editAddressResponse = await Address.editAddress(req.body);
-        res.status(200).json(editAddressResponse);
+        res.status(200).json({ message: 'Address edited!' });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
@@ -51,7 +51,7 @@ exports.editAddress = async (req, res, next) => {
 exports.deleteAddress = async (req, res, next) => {
     try {
         const deleteAddressResponse = await Address.deleteAddress(req.params.id_address);
-        res.status(200).json(deleteAddressResponse);
+        res.status(200).json({ message: 'Address deleted!' });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;

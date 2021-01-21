@@ -63,7 +63,7 @@ exports.editUser = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
     try {
         const deleteUserResponse = await User.deleteUser(req.params.id_user);
-        res.status(200).json(deleteUserResponse);
+        res.status(200).json({ message: 'User deleted!' });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
