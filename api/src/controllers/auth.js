@@ -8,7 +8,9 @@ const User = require('../models/user');
 exports.signup = async (req, res, next) => {
     const errors = validationResult(req);
 
-    if (!errors.isEmpty()) return;
+    if (!errors.isEmpty()){
+        throw errors;
+    }
 
     const name_user = req.body.name_user;
     const email_user = req.body.email_user;
