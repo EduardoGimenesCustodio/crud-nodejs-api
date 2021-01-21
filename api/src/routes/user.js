@@ -16,7 +16,8 @@ router.put('/', [
         .custom(async (email_user) => {
             const user = await User.findEmail(email_user);
             if (user[0].length > 0) {
-                return Promise.reject('E-mail address already exist!');
+                if(user[0].email_user !== email_user)
+                    return Promise.reject('E-mail address already exist!');
             }
         })
         .normalizeEmail(),
