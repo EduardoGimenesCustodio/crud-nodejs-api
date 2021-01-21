@@ -24,22 +24,27 @@ exports.getUser = async (req, res, next) => {
     }
 };
 
-exports.addUser = async (req, res, next) => {
-    try {
-        const addUserResponse = await User.addUser(req.body);
-        res.status(201).json(addUserResponse);
-    } catch (err) {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    }
-};
-
 exports.editUser = async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) return;
+
+    const name_user = req.body.name_user;
+    const email_user = req.body.email_user;
+    const password_user = req.body.password_user;
+
     try {
-        const editUserResponse = await User.editUser(req.body);
-        res.status(200).json(editUserResponse);
+        const hashedPasswordUser = await bcrypt.hash(password_user, 12);
+
+        const user = {
+            name_user: name_user,
+            email_user: email_user,
+            password_user: hashedPasswordUser,
+        };
+
+        const result = await User.editUser(user);
+
+        res.status(201).json({ message: 'User edited!' });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
