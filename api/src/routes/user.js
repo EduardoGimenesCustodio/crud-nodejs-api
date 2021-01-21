@@ -20,8 +20,7 @@ router.put('/', [
             const id_user = res.req.body.id_user;
             const user = await User.findEmail(email_user);
             if (user[0].length > 0) {
-                if(user[0][0].id_user != id_user)
-                {
+                if(user[0][0].id_user != id_user) {
                     return Promise.reject('Email address already exist!');
                 }
             }
