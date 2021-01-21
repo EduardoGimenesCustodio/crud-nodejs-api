@@ -42,6 +42,7 @@ exports.login = async (req, res, next) => {
         const user = await User.findEmail(email_user);
 
         if (user[0].length !== 1) {
+            res.status(401).json({ message: 'A user with this e-mail could not be found.' });
             const error = new Error('A user with this e-mail could not be found.');
             error.statusCode = 401;
             throw error;
@@ -52,6 +53,7 @@ exports.login = async (req, res, next) => {
         const isEqual = await bcrypt.compare(password_user, storedUser.password_user);
 
         if (!isEqual) {
+            res.status(401).json({ message: 'Wrong password!' });
             const error = new Error('Wrong password!');
             error.statusCode = 401;
             throw error;
