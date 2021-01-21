@@ -5,6 +5,10 @@ module.exports = class User {
         
     }
   
+    static findEmail(email_user) {
+        return db.execute('select * from user where email_user = ?', [email_user]);
+    }
+
     static getUsers() {
         return db.execute('select * from user');
     }

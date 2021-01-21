@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const authRoutes = require('./routes/auth');
 const userRoutes = require('./src/routes/user');
 const addressRoutes = require('./src/routes/address');
 
@@ -12,9 +13,13 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  // if (req.method === 'OPTIONS') {
+  //   return res.status(200).end();
+  // }
   next();
 });
 
+app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/address', addressRoutes);
 
