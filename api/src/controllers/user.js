@@ -34,6 +34,7 @@ exports.editUser = async (req, res, next) => {
 
     if (!errors.isEmpty()) return;
 
+    const id_user = req.body.id_user;
     const name_user = req.body.name_user;
     const email_user = req.body.email_user;
     const password_user = req.body.password_user;
@@ -42,6 +43,7 @@ exports.editUser = async (req, res, next) => {
         const hashedPasswordUser = await bcrypt.hash(password_user, 12);
 
         const user = {
+            id_user: id_user,
             name_user: name_user,
             email_user: email_user,
             password_user: hashedPasswordUser,
