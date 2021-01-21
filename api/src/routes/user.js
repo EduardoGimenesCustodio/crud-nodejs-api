@@ -22,9 +22,7 @@ router.put('/', [
             if (user[0].length > 0) {
                 if(user[0][0].id_user != id_user)
                 {
-                    const error = new Error('E-mail address already exist!');
-                    error.statusCode = 401;
-                    throw error;
+                    res.status(401).json({ message: 'E-mail address already exist!' });
                 }
             }
         })
