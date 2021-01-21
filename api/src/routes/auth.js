@@ -14,9 +14,7 @@ router.post('/signup', [
         .custom(async (email_user) => {
             const user = await User.findEmail(email_user);
             if (user[0].length > 0) {
-                const error = new Error('E-mail address already exist!');
-                error.statusCode = 401;
-                throw error;
+                return;
             }
         })
         .normalizeEmail()

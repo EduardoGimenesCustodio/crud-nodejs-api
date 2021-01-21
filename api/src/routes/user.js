@@ -22,7 +22,7 @@ router.put('/', [
             if (user[0].length > 0) {
                 if(user[0][0].id_user != id_user)
                 {
-                    res.status(401).json({ message: 'E-mail address already exist!' });
+                    return;
                 }
             }
         })
