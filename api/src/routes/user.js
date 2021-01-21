@@ -13,7 +13,6 @@ router.get('/', userController.getUsers);
 router.get('/:id_user', userController.getUser);
 
 router.put('/', [
-    body('name_user').trim().not().isEmpty(),
     body('email_user')
         .isEmail()
         .withMessage('Please enter a valid email.')
@@ -22,11 +21,14 @@ router.put('/', [
             const user = await User.findEmail(email_user);
             if (user[0].length > 0) {
                 if(user[0][0].id_user != id_user)
-                    return Promise.reject('E-mail address already exist!');
+                {
+                    const error = new Error('E-mail address already exist!');
+                    error.statusCode = 401;
+                    throw error;
+                }
             }
         })
         .normalizeEmail(),
-    body('password_user').trim().isLength({ min: 5 }),
     ],
     userController.editUser
 );
